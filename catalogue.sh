@@ -31,50 +31,50 @@ else
     echo "you are root user"
 fi
 
-dnf module disable nodejs -y
+dnf module disable nodejs -y &>> $LOGFILE
 VALIDATE $? "DISABLING CURRENT NODEJS"
 
-dnf module enable nodejs:18 -y
+dnf module enable nodejs:18 -y &>> $LOGFILE
 VALIDATE $? "ENNABLING NODEJS:18"
 
-dnf install nodejs -y
+dnf install nodejs -y &>> $LOGFILE
 VALIDATE $? "INSTALLING NODEJS:18"
 
-useradd roboshop
+useradd roboshop &>> $LOGFILE 
 VALIDATE $? "CREATING ROBOSHOP USER"
 
-mkdir /app
+mkdir /app &>> $LOGFILE
 VALIDATE $? "CREATING APP DIRECTORY"
 
-curl -o /tmp/catalogue.zip https://roboshop-builds.s3.amazonaws.com/catalogue.zip
+curl -o /tmp/catalogue.zip https://roboshop-builds.s3.amazonaws.com/catalogue.zip &>> $LOGFILE
 VALIDATE $? "DOWNLOADING CATALOGUE APPLICATION"
 
-cd /app 
+cd /app &>> $LOGFILE
 VALIDATE $? "CREATING APP DIRECTORY"
 
-unzip /tmp/catalogue.zip
+unzip /tmp/catalogue.zip &>> $LOGFILE
 VALIDATE $? "UNZIPPING CATALOGUE"
 
-npm install 
+npm install &>> $LOGFILE
 VALIDATE $? "INSTALLING DEPENDENCIES"
 
-CP /home/centos/roboshop-shell/catalogue.service /etc/systemd/system/catalogue.service
+CP /home/centos/roboshop-shell/catalogue.service /etc/systemd/system/catalogue.service &>> $LOGFILE
 VALIDATE $? "COPYING CATALOGUE SERVICE FILE"
 
-systemctl daemon-reload
+systemctl daemon-reload &>> $LOGFILE
 VALIDATE $? "CATALOGUE DAEMON RELOAD"
-
-systemctl enable catalogue
+ 
+systemctl enable catalogue &>> $LOGFILE
 VALIDATE $? "ENABLING CATALOGUE"
 
-systemctl start catalogue
+systemctl start catalogue &>> $LOGFILE
 VALIDATE $? "STARTING CATALOGUE"
 
-cp /home/centos/roboshop-shell/mongo.repo /etc/yum.repos.d/mongo.repo
+cp /home/centos/roboshop-shell/mongo.repo /etc/yum.repos.d/mongo.repo&>> $LOGFILE 
 VALIDATE $? "copying mongodb repo"
 
-dnf install mongodb-org-shell -y
+dnf install mongodb-org-shell -y &>> $LOGFILE
 VALIDATE $? "INSTALLING MONGODB CLIENT"
 
-mongo --host $MONGODB_HOST </app/schema/catalogue.js
+mongo --host $MONGODB_HOST </app/schema/catalogue.js &>> $LOGFILE
 VALIDATE $? "FINISHED"                                                         
