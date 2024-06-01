@@ -58,7 +58,7 @@ VALIDATE $? "UNZIPPING CATALOGUE"
 npm install &>> $LOGFILE
 VALIDATE $? "INSTALLING DEPENDENCIES"
 
-CP /home/centos/roboshop-shell/catalogue.service /etc/systemd/system/catalogue.service &>> $LOGFILE
+cp /home/centos/roboshop-shell/catalogue.service /etc/systemd/system/catalogue.service &>> $LOGFILE
 VALIDATE $? "COPYING CATALOGUE SERVICE FILE"
 
 systemctl daemon-reload &>> $LOGFILE
