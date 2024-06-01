@@ -59,7 +59,7 @@ VALIDATE $? "DOWNLOADING CATALOGUE APPLICATION"
 cd /app &>> $LOGFILE
 VALIDATE $? "CREATING APP DIRECTORY"
 
-unzip /tmp/catalogue.zip &>> $LOGFILE
+unzip -0 /tmp/catalogue.zip &>> $LOGFILE
 VALIDATE $? "UNZIPPING CATALOGUE"
 
 npm install &>> $LOGFILE
